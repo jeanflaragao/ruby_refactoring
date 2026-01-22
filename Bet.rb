@@ -3,7 +3,7 @@ class Bet
 
   STATUSES = ["pending", "won", "lost"].freeze
 
-  def initialize(id:, user_id:, match_id:, amount:, bet_type:, selection:, odds:)
+  def initialize(id:, user_id:, match_id:, amount:, selection:, odds:)
     @id = id
     @user_id = user_id
     @match_id = match_id
