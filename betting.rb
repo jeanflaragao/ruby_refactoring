@@ -1,5 +1,34 @@
 require 'date'
 
+class Bet
+  attr_reader :id, :user_id, :match_id, :amount, :selection, :odds, :potential_win, :status
+
+  STATUSES = ["pending", "won", "lost"].freeze
+
+  def initialize(id:, user_id:, match_id:, amount:, bet_type:, selection:, odds:)
+    @id = id
+    @user_id = user_id
+    @match_id = match_id
+    @amount = amount
+    @selection = selection
+    @odds = odds
+    @status = "pending"
+    @potential_win = (amount * odds).round(2)
+  end
+
+  def win!
+    @status = "won"
+  end
+
+  def lose!
+    @status = "lost"
+  end
+
+  def pending?
+    @status == "pending"
+  end
+end
+
 class User
   attr_accessor :id, :name, :email
   attr_reader :balance
@@ -93,16 +122,7 @@ class BettingProcessor
       end
       
       bet_id = $bets_repo.size + 1
-      new_bet = {
-        id: bet_id,
-        user_id: user_id,
-        match_id: match_id,
-        amount: amount,
-        odds: odds,
-        selection: selection,
-        status: "pending",
-        potential_win: amount * odds
-      }
+      new_bet = Bet.new(id: bet_id, user_id: user_id, match_id: match_id, amount: amount, bet_type: bet_type, selection: selection, odds: odds)
       $bets_repo << new_bet
 
       # Envio de email "Fake" acoplado
@@ -137,4 +157,18 @@ class BettingProcessor
       end
     end
   end
+end
+
+# --- TESTE MANUAL ---
+puts "--- Iniciando Teste ---"
+processor = BettingProcessor.new
+
+# Tenta fazer uma aposta
+bet = processor.process_bet(1, 101, 10.0, "simple", "home")
+
+if bet.is_a?(Bet)
+  puts "✅ Sucesso! Aposta criada: ID #{bet.id}, Potencial Ganho: #{bet.potential_win}"
+  puts "💰 Saldo do User atualizado para: #{$user_repo[1].balance}"
+else
+  puts "❌ Falha: #{bet}"
 end
