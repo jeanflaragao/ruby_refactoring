@@ -22,12 +22,12 @@ I am applying the following concepts strictly:
 ### Phase 1: Analysis & Diagnosis 🕵️‍♂️
 
 - [x] Setup Dockerized Environment.
-- [ ] Analyze the "Legacy" Code (God Objects, Primitive Obsession).
-- [ ] Identify violations of "Tell, Don't Ask".
+- [x] Analyze the "Legacy" Code (God Objects, Primitive Obsession).
+- [x] Identify violations of "Tell, Don't Ask".
 
 ### Phase 2: Refactoring & Hardening 🛠️
 
-- [ ] Extract **Domain Objects** (User, Match) from global Hashes.
+- [x] Extract **Domain Objects** (User, Match) from global Hashes.
 - [ ] Implement **Service Objects** for external interactions.
 - [ ] Remove nested conditionals using **Polymorphism**.
 - [ ] Apply **Value Objects** for Money and Odds.
@@ -44,7 +44,7 @@ This project runs in a Docker container to ensure environment consistency.
 1. **Clone the repo:**
 
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/jeanflaragao/ruby_refactoring
    cd ruby_refactoring
 
    ```
