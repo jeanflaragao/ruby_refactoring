@@ -22,4 +22,10 @@ class User
     @balance += amount
   end
 
+  def pay(amount)
+    return false unless has_sufficient_funds?(amount)
+    @balance -= amount
+    true
+  end
+
 end 

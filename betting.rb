@@ -49,8 +49,9 @@ class User
   end
 
   def pay(amount)
-    raise "Insufficient funds" unless has_sufficient_funds?(amount)
+    return false unless has_sufficient_funds?(amount)
     @balance -= amount
+    true
   end
 end 
 
